@@ -11,11 +11,11 @@ package sebas.lab07_refactoring;
 public class Customer {
 
     private String name;
-    private String phone;  // Almacenado como String simple
+    private PhoneNumber phone;
 
     public Customer(String name, String phone) {
         this.name = name;
-        this.phone = phone;
+        this.phone = new PhoneNumber(phone);
     }
     
     public String getName() {
@@ -23,23 +23,18 @@ public class Customer {
     }
 
     public String getPhone() {
-        return phone;
+        return phone.getNumber();
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = new PhoneNumber(phone);
     }
 
     public boolean hasValidPhone() {
-        return phone != null && phone.matches("\\d{9}");
+        return phone.isValid();
     }
 
     public String getFormattedPhone() {
-        if (phone == null || phone.length() != 9) {
-            return phone;
-        }
-        return phone.substring(0, 3) + "-"
-                + phone.substring(3, 6) + "-"
-                + phone.substring(6);
+        return phone.getFormattedPhone();
     }
 }

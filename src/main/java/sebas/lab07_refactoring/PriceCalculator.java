@@ -19,20 +19,28 @@ public class PriceCalculator {
     }
 
     public double calculateTotal() {
-        double price = this.basePrice * this.quantity;
-        double discount;
+        return getSubtotal() + getTax();
+    }
 
-        if (price > 1000) {
-            discount = price * 0.15;
-        } else if (price > 500) {
-            discount = price * 0.10;
+    private double getPrice() {
+        return this.basePrice * this.quantity;
+    }
+
+    private double getDiscount() {
+        if (getPrice() > 1000) {
+            return getPrice() * 0.15;
+        } else if (getPrice() > 500) {
+            return getPrice() * 0.10;
         } else {
-            discount = price * 0.05;
+            return getPrice() * 0.05;
         }
+    }
 
-        double subtotal = price - discount;
-        double tax = subtotal * 0.18;
+    private double getSubtotal() {
+        return getPrice() - getDiscount();
+    }
 
-        return subtotal + tax;
+    private double getTax() {
+        return getSubtotal() * 0.18;
     }
 }
